@@ -175,7 +175,7 @@ defmodule CQL.DataTypesTest do
   end
 
   test "uuid" do
-    uuids = [UUID.uuid1, UUID.uuid4]
+    uuids = [UUID.uuid1, UUID.uuid4, nil]
     for uuid <- uuids do
       assert uuid == uuid |> encode(:uuid) |> drop_size |> decode(:uuid)
     end

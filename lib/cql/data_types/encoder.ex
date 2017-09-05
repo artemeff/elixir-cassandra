@@ -266,6 +266,8 @@ defmodule CQL.DataTypes.Encoder do
 
   defp enc(:blob,      value), do: blob(value)
 
+  defp enc(:uuid, nil), do: <<>>
+  defp enc(:timeuuid, nil), do: <<>>
   defp enc(_type, nil), do: int(-1)
   defp enc(_type, :not_set), do: int(-2)
 
