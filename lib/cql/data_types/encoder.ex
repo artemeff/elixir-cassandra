@@ -54,6 +54,9 @@ defmodule CQL.DataTypes.Encoder do
   def long_string(str) when is_binary(str), do: (str |> String.length |> int) <> <<str::bytes>>
   def long_string(x),                       do: invalid(:long_string, x)
 
+  def uuid(str) when is_binary(str) and byte_size(str) == 16 do
+    str
+  end
   def uuid(str) when is_binary(str) do
     try do
       UUID.string_to_binary!(str)

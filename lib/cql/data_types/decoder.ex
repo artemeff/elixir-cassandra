@@ -58,7 +58,7 @@ defmodule CQL.DataTypes.Decoder do
     {nil, <<>>}
   end
   def uuid(<<uuid::bits-128, rest::bytes>>) do
-    {UUID.binary_to_string!(uuid), rest}
+    {uuid, rest}
   end
 
   def string_list({n, buffer}) do

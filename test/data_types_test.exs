@@ -175,9 +175,15 @@ defmodule CQL.DataTypesTest do
   end
 
   test "uuid" do
-    uuids = [UUID.uuid1, UUID.uuid4, nil]
-    for uuid <- uuids do
-      assert uuid == uuid |> encode(:uuid) |> drop_size |> decode(:uuid)
+    string_uuid = "88a26bd3-3f50-4c14-a016-504a6f032296"
+    binary_uuid = UUID.string_to_binary!(string_uuid)
+
+    uuid1 = <<119, 19, 232, 22, 162, 214, 17, 231, 151, 144, 220, 169, 4, 146, 165, 23>>
+    uuid4 = <<242, 201, 170, 124, 142, 81, 66, 86, 132, 32, 42, 0, 16, 215, 65, 206>>
+    uuids = [{binary_uuid, string_uuid}, {uuid1, uuid1}, {uuid4, uuid4}, {nil, nil}]
+
+    for {uuid_expected, uuid_provided} <- uuids do
+      assert uuid_expected == uuid_provided |> encode(:uuid) |> drop_size |> decode(:uuid)
     end
 
     assert %CQL.Error{code: :invalid, info: info} = encode("bad id", :uuid)
