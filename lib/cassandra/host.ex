@@ -68,10 +68,10 @@ defmodule Cassandra.Host do
 
   ### Helpers ###
 
-  defp peer_ip(%{"broadcast_address" => ip}) when not is_nil(ip), do: {:ok, ip}
   defp peer_ip(%{"rpc_address" => {0, 0, 0, 0}, "peer" => peer}), do: {:ok, peer}
   defp peer_ip(%{"rpc_address" => nil, "peer" => peer}), do: {:ok, peer}
   defp peer_ip(%{"rpc_address" => ip}) when not is_nil(ip), do: {:ok, ip}
+  defp peer_ip(%{"broadcast_address" => ip}) when not is_nil(ip), do: {:ok, ip}
   defp peer_ip(_), do: :error
 
   defp from_data(%{
