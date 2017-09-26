@@ -93,7 +93,7 @@ defmodule Cassandra.Connection do
     do
       {:ok, %{socket: socket, host: host, timeout: timeout, options: options, last_cursor: 0, cursors: %{}}}
     else
-      {:error, reason} when is_atom(reason) -> {:error, ConnectionError.new("TCP Connect", reason)}
+      {:error, reason} when is_atom(reason) -> {:error, ConnectionError.new(host, port, "TCP Connect", reason)}
       error                                 -> {:error, error}
     end
   end
